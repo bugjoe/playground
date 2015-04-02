@@ -1,6 +1,5 @@
 package test;
 
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
@@ -8,14 +7,14 @@ import io.netty.handler.codec.http.*;
 /**
  * @author josef.bauer@gi-de.com
  */
-@ChannelHandler.Sharable
 public class MyNettyHandler extends SimpleChannelInboundHandler {
 	private final String answer = "Hello stranger";
 	private boolean authorized = false;
+	private int called = 0;
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, Object message) throws Exception {
-		System.out.println("\n>>> Object: " + message.getClass());
+		System.out.println("\n>>> Object(" + called++ + "): " + message.getClass());
 
 		if(message instanceof HttpRequest) {
 			final HttpRequest httpRequest = (HttpRequest) message;
