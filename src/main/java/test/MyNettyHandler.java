@@ -14,12 +14,12 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, Object message) throws Exception {
-		System.out.println("\n>>> Object(" + called++ + "): " + message.getClass());
+		System.out.println("\n\n>>> Object(" + called++ + "): " + message.getClass());
 
 		if(message instanceof HttpRequest) {
 			final HttpRequest httpRequest = (HttpRequest) message;
 			if(!httpRequest.headers().contains(HttpHeaderNames.AUTHORIZATION)) {
-				System.out.print("User has to authorize first");
+				System.out.println("User has to authenticate first");
 			} else {
 				final CharSequence authString = httpRequest.headers().get(HttpHeaderNames.AUTHORIZATION);
 				System.out.println("Authentication string: " + authString);
@@ -68,7 +68,7 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 		}
 
 		response.headers().set(HttpHeaderNames.CONTENT_LENGTH, String.valueOf(response.content().readableBytes()));
-		System.out.print("Writing response: " + response);
+		System.out.println("Writing response: " + response);
 		ctx.writeAndFlush(response);
 	}
 }
