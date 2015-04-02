@@ -8,6 +8,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class App {
 	public static void main(String[] args) throws Exception {
+		final int port = 8080;
 		final EventLoopGroup bossGroup = new NioEventLoopGroup();
 		final EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
@@ -18,8 +19,8 @@ public class App {
 //			bootstrap.option(ChannelOption.SO_BACKLOG, 128);
 //			bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-			System.out.println("Starting server ...");
-			final ChannelFuture channelFuture = bootstrap.bind(8080).sync();
+			System.out.println("Listening on port " + port + " ...");
+			final ChannelFuture channelFuture = bootstrap.bind(port).sync();
 			channelFuture.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
