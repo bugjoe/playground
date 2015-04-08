@@ -1,4 +1,4 @@
-package test;
+package test.netty;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -20,7 +20,7 @@ public class HttpChannelInitializer extends ChannelInitializer<NioSocketChannel>
 		final SelfSignedCertificate ssc = new SelfSignedCertificate("localhost");
 		final SslContext sslCtx = SslContext.newServerContext(ssc.certificate(), ssc.privateKey());
 
-		pipeline.addLast(sslCtx.newHandler(nioSocketChannel.alloc()));
+//		pipeline.addLast(sslCtx.newHandler(nioSocketChannel.alloc()));
 		pipeline.addLast(new HttpRequestDecoder());
 		pipeline.addLast(new HttpResponseEncoder());
 		pipeline.addLast(new MyNettyHandler());

@@ -1,5 +1,6 @@
-package test;
+package test.netty;
 
+import com.google.common.io.BaseEncoding;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
@@ -23,6 +24,9 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 			} else {
 				final CharSequence authString = httpRequest.headers().get(HttpHeaderNames.AUTHORIZATION);
 				System.out.println("Authentication string: " + authString);
+				final byte[] decodedBytes = BaseEncoding.base64().decode(authString.toString().toUpperCase());
+				final String usernamePassword = new String(decodedBytes, "UTF-8");
+				System.out.println("User:Password = " + usernamePassword);
 				authorized = true;
 			}
 //			System.out.println("Headers: " + httpRequest.headers());
