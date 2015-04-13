@@ -1,0 +1,3 @@
+TABLE "zone"
+Partition Key: zoneName (string)
+

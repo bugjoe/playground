@@ -16,12 +16,10 @@ public class App {
 			bootstrap.group(bossGroup, workerGroup);
 			bootstrap.channel(NioServerSocketChannel.class);
 			bootstrap.childHandler(new HttpChannelInitializer());
-//			bootstrap.option(ChannelOption.SO_BACKLOG, 128);
-//			bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
-
 			System.out.println("Listening on port " + port + " ...");
 			final ChannelFuture channelFuture = bootstrap.bind(port).sync();
 			channelFuture.channel().closeFuture().sync();
+			bootstrap.childGroup();
 		} finally {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();

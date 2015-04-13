@@ -8,9 +8,6 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
-/**
- * @author josef.bauer@gi-de.com
- */
 public class HttpChannelInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Override
 	protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {

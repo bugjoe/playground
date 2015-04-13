@@ -5,9 +5,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 
-/**
- * @author josef.bauer@gi-de.com
- */
 public class MyNettyHandler extends SimpleChannelInboundHandler {
 	private final String answer = "Hello stranger";
 	private boolean authorized = false;
