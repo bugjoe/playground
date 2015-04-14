@@ -1,8 +1,23 @@
-DROP KEYSPACE test;
+DROP KEYSPACE IF EXISTS test;
 
-CREATE KEYSPACE IF NOT EXISTS test WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS test WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 2 };
 
 USE test;
+
+CREATE TYPE TypeA (
+	a1 text,
+	a2 text
+);
+
+CREATE TYPE TypeB (
+	b1 text,
+	b2 frozen<TypeA>
+);
+
+CREATE TABLE ab (
+	id int PRIMARY KEY,
+	test frozen<TypeB>
+);
 
 CREATE TYPE record (
 	name  text,
@@ -13,15 +28,27 @@ CREATE TYPE record (
 
 CREATE TABLE zones (
 	zoneName text PRIMARY KEY,
-	records set<frozen<record>>
+	records  set<frozen<record>>,
+	typeA    frozen<TypeA>
+);
+
+CREATE TABLE user (
+	name text,
+	zone text,
+	PRIMARY KEY(name)
 );
 
 
-INSERT INTO zones (zoneName, records) VALUES ('foo.com', {
-{name: 'ns1.foo.com', type: 'NS', clazz: 'IN', data: '1.2.3.4'},
-{name: 'ns2.foo.com', type: 'NS', clazz: 'IN', data: '2.2.3.3'}
-});
-//INSERT INTO zones (zoneName, records) VALUES ('foo.com', records = records + {name:'foo.com', type:'A', clazz:'IN', data:'123.111.222.123'});
-//INSERT INTO records (zoneName, type, class, data) VALUES ('foo.com', 'NS', 'IN', 'ns1.foo.com');
-//INSERT INTO records (zoneName, type, class, data) VALUES ('bar.org', 'A', 'IN', '10.222.111.10');
-//INSERT INTO records (zoneName, type, class, data) VALUES ('bar.org', 'NS', 'IN', 'ns1.bar.org');
+INSERT INTO zones (zoneName, records, typeA) VALUES (
+'foo.com',
+{
+	{name: 'ns1.foo.com', type: 'NS', clazz: 'IN', data: '1.2.3.4'},
+	{name: 'ns2.foo.com', type: 'NS', clazz: 'IN', data: '2.2.3.3'}
+},
+{a2: 'a2'}
+);
+
+INSERT INTO user (name, zone) VALUES ('hubera', 'foo.com');
+INSERT INTO user (name, zone) VALUES ('schmidtp', 'bar.org');
+
+INSERT INTO ab (id, test) VALUES (1, {b1: 'b1', b2: {a1: 'a1', a2: 'a2'}});
