@@ -15,8 +15,11 @@ public class App {
             final String zoneName = row.getString("zoneName");
             final Set<UDTValue> records = row.getSet("records", UDTValue.class);
             final UDTValue typeA = row.getUDTValue("typeA");
+            final TupleValue foo = row.getTupleValue("foo");
+            final String fooText1 = foo.getString(1);
             System.out.println("ZoneName = " + zoneName);
             System.out.println("TypeA = " + (typeA == null ? "NULL" : typeA.getString("a1")));
+            System.out.println("Tuple Text 2 = " + fooText1);
             System.out.println("Records = {");
             for (UDTValue udtRecord : records) {
                 System.out.println("\tRecord = {");

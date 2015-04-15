@@ -29,26 +29,32 @@ CREATE TYPE record (
 CREATE TABLE zones (
 	zoneName text PRIMARY KEY,
 	records  set<frozen<record>>,
+	foo      tuple<text, text, int>,
 	typeA    frozen<TypeA>
 );
 
 CREATE TABLE user (
-	name text,
-	zone text,
-	PRIMARY KEY(name)
+	login text,
+	name  text,
+	zone  text,
+	PRIMARY KEY(login)
 );
 
+CREATE INDEX ON user(name);
 
-INSERT INTO zones (zoneName, records, typeA) VALUES (
+
+INSERT INTO zones (zoneName, records, foo, typeA) VALUES (
 'foo.com',
 {
 	{name: 'ns1.foo.com', type: 'NS', clazz: 'IN', data: '1.2.3.4'},
 	{name: 'ns2.foo.com', type: 'NS', clazz: 'IN', data: '2.2.3.3'}
 },
+('text1', 'text2', 1234),
 {a2: 'a2'}
 );
 
-INSERT INTO user (name, zone) VALUES ('hubera', 'foo.com');
-INSERT INTO user (name, zone) VALUES ('schmidtp', 'bar.org');
+INSERT INTO user (login, name, zone) VALUES ('hubera', 'Alexander Huber', 'foo.com');
+INSERT INTO user (login, name, zone) VALUES ('schmidtp', 'Peter Schmidt', 'bar.org');
+INSERT INTO user (login, name, zone) VALUES ('schmidtp2', 'Peter Schmidt', 'bar2.org');
 
 INSERT INTO ab (id, test) VALUES (1, {b1: 'b1', b2: {a1: 'a1', a2: 'a2'}});
