@@ -16,13 +16,18 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 
 		if(message instanceof HttpRequest) {
 			final HttpRequest httpRequest = (HttpRequest) message;
-			if(!httpRequest.headers().contains(HttpHeaderNames.AUTHORIZATION)) {
+			final CharSequence authString = httpRequest.headers().get(HttpHeaderNames.AUTHORIZATION);
+			if(authString == null) {
 				System.out.println("User has to authenticate first");
 			} else {
-				final CharSequence authString = httpRequest.headers().get(HttpHeaderNames.AUTHORIZATION);
-				System.out.println("Authentication string: " + authString);
-				final byte[] decodedBytes = BaseEncoding.base64().decode(authString.toString().toUpperCase());
-				final String usernamePassword = new String(decodedBytes, "UTF-8");
+				System.out.println("Authentication string: '" + authString + "'");
+				String usernamePasswordBase64 = authString.toString();
+				if(usernamePasswordBase64.startsWith("Basic")) {
+					usernamePasswordBase64 = usernamePasswordBase64.replace("Basic", "").trim();
+				}
+				System.out.println("Username:Password Base64: '" + usernamePasswordBase64 + "'");
+				final byte[] decodedBytes = BaseEncoding.base64().decode(usernamePasswordBase64);
+				final String usernamePassword = new String(decodedBytes);
 				System.out.println("User:Password = " + usernamePassword);
 				authorized = true;
 			}
