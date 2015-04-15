@@ -1,0 +1,7 @@
+{
+	"name":  "example.org",
+	"type":  "NS",
+	"clazz": "IN",
+	"data":  "ns1.example.org",
+	"ttl":   3600
+}
