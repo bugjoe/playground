@@ -1,4 +1,4 @@
-package test.cassandra;
+package cassandra;
 
 import com.datastax.driver.core.*;
 

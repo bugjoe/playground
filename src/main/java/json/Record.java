@@ -1,4 +1,4 @@
-package test.json;
+package json;
 
 public class Record {
     private String name;

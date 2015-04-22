@@ -1,4 +1,4 @@
-package test.dnsjava;
+package dnsjava;
 
 import org.xbill.DNS.DClass;
 import org.xbill.DNS.Name;
