@@ -15,9 +15,7 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 	protected void messageReceived(ChannelHandlerContext ctx, Object message) throws Exception {
 		System.out.printf("%n%n>>> Object(%d): %s%n", called++, message.getClass());
 
-        if (1 == 1) {
-            throw new IllegalArgumentException("Booooom!");
-        }
+        throwException();
 
 		if (message instanceof HttpRequest) {
 			final HttpRequest httpRequest = (HttpRequest) message;
@@ -40,7 +38,7 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 				extractUsernameAndPassword(usernamePasswordBase64);
 
 				System.out.printf("Username=%s, Password='%s'%n", username, password);
-                
+
 				authorized = true;
 			}
 		}
@@ -55,7 +53,11 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
         }
     }
 
-	private void writeResponse(ChannelHandlerContext ctx, String responseText) {
+    private void throwException() {
+        throw new IllegalArgumentException("Booooom!");
+    }
+
+    private void writeResponse(ChannelHandlerContext ctx, String responseText) {
 		FullHttpResponse response;
 
 		if(authorized) {
