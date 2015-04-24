@@ -16,7 +16,7 @@ public class App {
 			bootstrap.group(bossGroup, workerGroup);
 			bootstrap.channel(NioServerSocketChannel.class);
 			bootstrap.childHandler(new HttpChannelInitializer());
-			System.out.println("Listening on port " + port + " ...");
+			System.out.printf("Listening on port %d ...%n", port);
 			final ChannelFuture channelFuture = bootstrap.bind(port).sync();
 			channelFuture.channel().closeFuture().sync();
 			bootstrap.childGroup();
