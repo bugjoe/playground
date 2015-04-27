@@ -1,22 +1,34 @@
 package dnsjava;
 
-import org.xbill.DNS.DClass;
-import org.xbill.DNS.Name;
-import org.xbill.DNS.Record;
-import org.xbill.DNS.Type;
+import org.xbill.DNS.*;
 
 public class App {
     public static void main(String ... args) throws Exception {
-        final Name name = Name.fromString("foobar.host.com.");
-        final Record record = Record.fromString(name, Type.A, DClass.IN, 3600, "123.123.123.123", null);
-        System.out.println("Record          : " + record);
-        System.out.println("Additional Name : " + record.getAdditionalName());
-        System.out.println("Name            : " + record.getName());
-        System.out.println("Zone            : " + extractZoneName(name));
-    }
+        final Name subdomainName = Name.fromString("foobar.test.org.");
 
-    private static String extractZoneName(Name name) {
-        final int indexFirstDot = name.toString().indexOf(".");
-        return name.toString().substring(indexFirstDot + 1);
+        final Name zoneName = Name.fromString("test.org.");
+
+        final Record recordA = Record.fromString(subdomainName, Type.A, DClass.IN, 3600, "123.123.123.123", null);
+
+        final Record recordNs = Record.fromString(zoneName, Type.NS, DClass.IN, 3600, "ns1.test.org.", null);
+
+        final SOARecord soaRecord = new SOARecord(
+            zoneName,
+            DClass.IN,
+            3600,
+            zoneName,
+            Name.fromConstantString("admin@test.org."),
+            1,
+            100,
+            10,
+            100,
+            1
+        );
+
+        final Record[] records = {soaRecord, recordA, recordNs};
+
+        final Zone zone = new Zone(Name.fromString("test.org."), records);
+
+        System.out.println("Zone: " + zone.toString());
     }
 }
