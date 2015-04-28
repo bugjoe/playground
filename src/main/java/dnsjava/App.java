@@ -29,6 +29,6 @@ public class App {
 
         final Zone zone = new Zone(Name.fromString("test.org."), records);
 
-        System.out.println("Zone: " + zone.toString());
+        System.out.printf("Zone: %n%s%n", zone.toString());
     }
 }
