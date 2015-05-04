@@ -15,8 +15,6 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
 	protected void messageReceived(ChannelHandlerContext ctx, Object message) throws Exception {
 		System.out.printf("%n%n>>> Object(%d): %s%n", called++, message.getClass());
 
-        throwException();
-
 		if (message instanceof HttpRequest) {
 			final HttpRequest httpRequest = (HttpRequest) message;
 
@@ -49,12 +47,7 @@ public class MyNettyHandler extends SimpleChannelInboundHandler {
             } else {
                 writeResponse(ctx, "Please authenticate yourself\n");
             }
-
         }
-    }
-
-    private void throwException() {
-        throw new IllegalArgumentException("Booooom!");
     }
 
     private void writeResponse(ChannelHandlerContext ctx, String responseText) {
