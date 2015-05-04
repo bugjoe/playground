@@ -14,14 +14,16 @@ public class App {
 	private static final String LEADING_ZEROES = "00000000";
 
 	public static void main(String... args) throws Exception {
-		final Map<String, Document> profiles = parse(1423777100, 1423777250);
+		final Map<String, Document> profiles = parse(1423777170, 1423777200);
 
 		for (String profileId : profiles.keySet()) {
 			final String fileName = "profiles/" + profileId + ".txt";
 
 			final File storeDir = new File("profiles");
 
-			storeDir.mkdir();
+			if (!storeDir.mkdir()) {
+				System.out.printf("Directory (%s) was not created (maybe it already exists)%n", storeDir.toString());
+			}
 
 			final Document document = profiles.get(profileId);
 
@@ -29,13 +31,13 @@ public class App {
 		}
 	}
 
-	private static Map<String, Document> parse(int start, int end) {
+	private static Map<String, Document> parse(long start, long end) {
 		int validPorfiles = 0,
 			invalidProfiles = 0;
 
 		final Map<String, Document> profiles = new HashMap<String, Document>();
 
-		for (int i = start; i <= end; i++) {
+		for (long i = start; i <= end; i++) {
 			final String profileId = getHexString(i);
 			final String url = "https://www.gulp.de/freiberufler/" + profileId + ".html";
 //			System.out.printf("Parsing URL: %s%n", url);
@@ -56,8 +58,8 @@ public class App {
 		return profiles;
 	}
 
-	private static String getHexString(int number) {
-		final String hexString =  Integer.toHexString(number).toUpperCase();
+	private static String getHexString(long number) {
+		final String hexString =  Long.toHexString(number).toUpperCase();
 
 		final int hexStringLength = hexString.length();
 
