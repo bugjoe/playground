@@ -62,7 +62,7 @@ public class Scanner implements Runnable
 	private void writeToDisc(Map<String, Document> profiles)
 	{
 		for (String profileId : profiles.keySet()) {
-			final String fileName = "profiles/" + profileId + ".txt";
+			final String fileName = "profiles/" + profileId + ".html";
 
 			final File storeDir = new File("profiles");
 
