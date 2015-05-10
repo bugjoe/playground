@@ -13,15 +13,15 @@ public class App {
 		}
 
 		final int numberOfJobs = Integer.parseInt(args[0]);
-		final String foo = "0x0";// + args[1];
+		final String foo = "0x" + args[1];
 		final long firstProfile = Long.decode(foo);
-		final String bar = "0xFF";// + args[2];
+		final String bar = "0x" + args[2];
 		final long lastProfile = Long.decode(bar);
 		final long numberOfProfilesPerJob = (lastProfile - firstProfile) / numberOfJobs;
 
-		for (long _firstProfile = firstProfile; _firstProfile < lastProfile; _firstProfile += numberOfProfilesPerJob)
+		for (long nextStartProfile = firstProfile; nextStartProfile < lastProfile; nextStartProfile += numberOfProfilesPerJob + 1)
 		{
-			final Scanner scanner = new Scanner(_firstProfile, firstProfile + numberOfProfilesPerJob);
+			final Scanner scanner = new Scanner(nextStartProfile, nextStartProfile + numberOfProfilesPerJob);
 			new Thread(scanner).start();
 		}
 	}

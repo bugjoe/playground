@@ -25,7 +25,7 @@ public class Scanner implements Runnable
 	public void run()
 	{
 
-		System.out.printf("Scanning from %s to %s %n",
+		System.out.printf("Start scanning from %s to %s %n",
 				Long.toHexString(startProfile).toUpperCase(),
 				Long.toHexString(endProfile).toUpperCase());
 
@@ -53,11 +53,10 @@ public class Scanner implements Runnable
 		}
 		final long endTime = System.currentTimeMillis() / 1000;
 
-		System.out.printf("Scanned %d profiles in %d seconds%n", endProfile - startProfile, endTime - startTime);
-		System.out.printf("Found %d valid profile(s) and %d invalid profile(s)%n", validProfiles, invalidProfiles);
-		System.out.printf("Writing found profiles to disc ... ");
 		writeToDisc(profiles);
-		System.out.printf("DONE%n%n");
+
+		System.out.printf("Scanned %d profiles in %d seconds%n", endProfile - startProfile + 1, endTime - startTime);
+		System.out.printf("Found %d valid profile(s) and %d invalid profile(s)%n", validProfiles, invalidProfiles);
 	}
 
 	private void writeToDisc(Map<String, Document> profiles)
