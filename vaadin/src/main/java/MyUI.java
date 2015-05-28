@@ -9,6 +9,12 @@ import javax.servlet.annotation.WebServlet;
 
 @Theme("valo")
 public class MyUI extends UI {
+	private static final UserDao USER_DAO = new UserDao();
+	private final User user1 = USER_DAO.read(User.USER_FILE_1);
+	private final User user2 = USER_DAO.read(User.USER_FILE_2);
+	private final User user3 = USER_DAO.read(User.USER_FILE_3);
+	private final User user4 = USER_DAO.read(User.USER_FILE_4);
+
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		final VerticalLayout mainLayout = new VerticalLayout();
@@ -17,10 +23,10 @@ public class MyUI extends UI {
 		final BeanContainer<String, User> userBeanContainer = new BeanContainer<String, User>(User.class);
 
 		userBeanContainer.setBeanIdProperty("login");
-		userBeanContainer.addBean(new User(User.USER_FILE_1));
-		userBeanContainer.addBean(new User(User.USER_FILE_2));
-		userBeanContainer.addBean(new User(User.USER_FILE_3));
-		userBeanContainer.addBean(new User(User.USER_FILE_4));
+		userBeanContainer.addBean(user1);
+		userBeanContainer.addBean(user2);
+		userBeanContainer.addBean(user3);
+		userBeanContainer.addBean(user4);
 
 		final Table table = new Table();
 		table.setSizeFull();
@@ -37,6 +43,11 @@ public class MyUI extends UI {
 					table.commit();
 					buttonCommit.setCaption("Edit");
 					table.setEditable(false);
+
+					USER_DAO.write(user1, User.USER_FILE_1);
+					USER_DAO.write(user2, User.USER_FILE_2);
+					USER_DAO.write(user3, User.USER_FILE_3);
+					USER_DAO.write(user4, User.USER_FILE_4);
 				} else {
 					table.setEditable(true);
 					buttonCommit.setCaption("Save");
