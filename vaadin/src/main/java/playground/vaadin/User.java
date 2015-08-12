@@ -1,3 +1,5 @@
+package playground.vaadin;
+
 import com.google.gson.annotations.Expose;
 
 import java.io.File;

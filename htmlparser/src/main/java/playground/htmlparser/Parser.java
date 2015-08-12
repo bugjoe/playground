@@ -1,4 +1,4 @@
-package htmlparser;
+package playground.htmlparser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;

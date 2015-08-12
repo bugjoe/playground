@@ -1,4 +1,4 @@
-package htmlparser;
+package playground.htmlparser;
 
 import com.google.common.io.Files;
 import org.jsoup.Connection;

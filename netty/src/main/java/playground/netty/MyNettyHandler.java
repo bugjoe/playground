@@ -1,4 +1,4 @@
-package netty;
+package playground.netty;
 
 import com.google.common.io.BaseEncoding;
 import io.netty.channel.ChannelHandlerContext;

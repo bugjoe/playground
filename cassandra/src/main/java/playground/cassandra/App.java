@@ -1,4 +1,4 @@
-package cassandra;
+package playground.cassandra;
 
 import com.datastax.driver.core.*;
 

@@ -61,7 +61,7 @@
 					<outjar>foo.zip</outjar>
 					<outputDirectory>${project.build.directory}</outputDirectory>
 					<options>
-						<option>-keep public class * json.Record { *; }</option>
+						<option>-keep public class * playground.json.Record { *; }</option>
 					</options>
 				</configuration>
 			</plugin>

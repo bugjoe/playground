@@ -1,3 +1,5 @@
+package playground.vaadin;
+
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,4 +1,4 @@
-package json;
+package playground.json;
 
 public class Record {
     private String name;

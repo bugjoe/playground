@@ -1,4 +1,4 @@
-package dnsjava;
+package playground.dnsjava;
 
 import org.xbill.DNS.*;
 

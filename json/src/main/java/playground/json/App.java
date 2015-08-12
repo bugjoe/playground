@@ -1,4 +1,4 @@
-package json;
+package playground.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

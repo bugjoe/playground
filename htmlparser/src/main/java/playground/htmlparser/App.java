@@ -1,4 +1,4 @@
-package htmlparser;
+package playground.htmlparser;
 
 import java.io.IOException;
 
