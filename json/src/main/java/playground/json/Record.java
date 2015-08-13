@@ -47,6 +47,10 @@ public class Record {
         this.ttl = ttl;
     }
 
+	public void throwException() {
+		throw new NullPointerException("Am I drunk?!");
+	}
+
     @Override
     public String toString() {
         return "[name:" + name + ", type:" + type + ", clazz:" + clazz + ", data:" + data + ", ttl:" + ttl + "]";
