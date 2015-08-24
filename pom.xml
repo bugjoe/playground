@@ -8,6 +8,12 @@
 	<packaging>pom</packaging>
 	<name>Playground Main</name>
 
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<modules>
 		<module>cassandra</module>
 		<module>dnsjava</module>
