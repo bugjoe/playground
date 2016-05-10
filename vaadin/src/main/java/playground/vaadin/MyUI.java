@@ -2,7 +2,10 @@ package playground.vaadin;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.data.Container;
+import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
+import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
@@ -56,6 +59,44 @@ public class MyUI extends UI {
 				}
 			}
 		});
+
+//		Chart chart = new Chart(ChartType.COLUMN);
+//		chart.setWidth("400px");  // 100% by default
+//		chart.setHeight("300px"); // 400px by default
+//		mainLayout.addComponent(chart);
+
+		mainLayout.addComponent(buildTree());
+	}
+
+
+	private Tree buildTree()
+	{
+		final Tree tree = new Tree("Navigation");
+		tree.setContainerDataSource(buildTreeContainerDataSource());
+		tree.setImmediate(true);
+		tree.setItemCaptionPropertyId("1234");
+		tree.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		tree.expandItem(0);
+
+		return tree;
+	}
+
+	private Container buildTreeContainerDataSource()
+	{
+		final String property = "1234";
+		final HierarchicalContainer container = new HierarchicalContainer();
+		container.addContainerProperty(property, String.class, "");
+
+		Item item = container.addItem(0);
+		container.setChildrenAllowed(0, true);
+		item.getItemProperty(property).setValue("google.com");
+
+		item = container.addItem(1);
+		item.getItemProperty(property).setValue("doc1");
+		container.setParent(1, 0);
+		container.setChildrenAllowed(1, false);
+
+		return container;
 	}
 
 	@WebServlet(urlPatterns = "/*")

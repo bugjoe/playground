@@ -9,8 +9,8 @@
 	<name>Playground Main</name>
 
 	<properties>
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -23,5 +23,6 @@
 		<module>openidconnect</module>
 		<module>vaadin</module>
 		<module>proguard</module>
+		<module>miniserver</module>
 	</modules>
 </project>
