@@ -3,3 +3,6 @@
 target
 dependency-reduced-pom.xml
 profiles
+.DS_Store
+.gradle
+build
