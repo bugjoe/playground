@@ -24,5 +24,6 @@
 		<module>vaadin</module>
 		<module>proguard</module>
 		<module>miniserver</module>
+		<module>neo4j</module>
 	</modules>
 </project>
